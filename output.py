@@ -188,25 +188,25 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 40, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        # self.horizontalLayout = QHBoxLayout()
+        # self.horizontalLayout.setObjectName(u"horizontalLayout")
+        # self.horizontalSpacer = QSpacerItem(40, 40, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout.addItem(self.horizontalSpacer)
+        # self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.pushButton_settings = QPushButton(self.centralwidget)
-        self.pushButton_settings.setObjectName(u"pushButton_settings")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.pushButton_settings.sizePolicy().hasHeightForWidth())
-        self.pushButton_settings.setSizePolicy(sizePolicy2)
-        self.pushButton_settings.setMinimumSize(QSize(0, 10))
+        # self.pushButton_settings = QPushButton(self.centralwidget)
+        # self.pushButton_settings.setObjectName(u"pushButton_settings")
+        # sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        # sizePolicy2.setHorizontalStretch(0)
+        # sizePolicy2.setVerticalStretch(0)
+        # sizePolicy2.setHeightForWidth(self.pushButton_settings.sizePolicy().hasHeightForWidth())
+        # self.pushButton_settings.setSizePolicy(sizePolicy2)
+        # self.pushButton_settings.setMinimumSize(QSize(0, 10))
 
-        self.horizontalLayout.addWidget(self.pushButton_settings)
+        # self.horizontalLayout.addWidget(self.pushButton_settings)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        # self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.verticalLayout.setStretch(0, 1)
         self.verticalLayout.setStretch(1, 1)
@@ -247,6 +247,6 @@ class Ui_MainWindow(object):
         self.pushButton_bookselector.setText("")
         self.pushButton_leftarrow.setText("")
         self.pushButton_leftfwd.setText("")
-        self.pushButton_settings.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        # self.pushButton_settings.setText(QCoreApplication.translate("MainWindow", u"...", None))
     # retranslateUi
 

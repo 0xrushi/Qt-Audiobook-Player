@@ -10,20 +10,21 @@
 
 # from turtle import pos
 # from PyQt5 import QtCore, QtGui, QtWidgets
+from re import S
 from PySide2.QtCore import *
 from PySide2.QtCore import Qt
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtWidgets import QSlider
-# from PyQt5 import QtWidgets
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtMultimedia import QMediaPlayer, QMediaContent
 from PySide2.QtCore import QUrl
 from PySide2 import QtWidgets, QtCore, QtGui
 import sys
 import os 
-import datetime
+import configparser
 from output import Ui_MainWindow
+import ast
 
 class Player(QMediaPlayer):
     _delayedPos = 0
@@ -49,23 +50,44 @@ class Player(QMediaPlayer):
         except:
             pass
 
-
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setupUi(self)
         self.player = Player()
-        self.video_seek_duration = 60000 # in milliseconds
+        self.video_seek_duration = 10000 # in milliseconds
+        self.video_seek_faster_duration = 300000 
         self.pushButton_rightfwd.clicked.connect(self.seek_forward)
         self.pushButton_play.clicked.connect(self.playAudioFile)
         self.pushButton_leftfwd.clicked.connect(self.seek_backward)
+        self.pushButton_rightarrow.clicked.connect(self.seek_forward_faster)
+        self.pushButton_leftarrow.clicked.connect(self.seek_backward_faster)
         self.positionSlider.sliderMoved.connect (self.setPosition)
         self.player.durationChanged.connect(self.set_duration)
         self.player.positionChanged.connect(self.positionChanged)
         self.player.stateChanged.connect(self.mediaStateChanged)
         self.pushButton_bookmark.clicked.connect(self.addBookmark)
-            
+        self.pushButton_bookselector.clicked.connect(self.getfile)
+        self.pushButton_delete.clicked.connect(self.removeSelectedBookmark)
+        self.listWidget_bookmark.itemClicked.connect(self.listWidgetItemClicked) # connect itemClicked to Clicked method
+        # self.pushButton_settings.clicked.connect(self.showSettings)
+        self.config = configparser.ConfigParser()
+        self.full_file_path = ''
+        
+        if not os.path.exists('bookmarks.ini'):
+            self.config['user'] = {'recentfile': ''}
+            self.config.write(open('bookmarks.ini', 'w'))
+        else:
+            self.config.read('bookmarks.ini')
+        print('self cingi', self.config)
+        if 'recentfile' in self.config['user']:
+            self.full_file_path = self.config['user']['recentfile']
+        if self.full_file_path:
+            for label in ast.literal_eval(self.config['user'][self.full_file_path]):
+                print('labe l is ', label)
+                listWidgetItem = QListWidgetItem(label)
+                self.listWidget_bookmark.addItem(listWidgetItem)
         # listWidgetItem = QListWidgetItem("GeeksForGeeks")
         # self.listWidget_bookmark .addItem(listWidgetItem)
     
@@ -86,7 +108,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.player.state() == QMediaPlayer.PlayingState:
             self.player.pause()
         else:
-            self.full_file_path = os.path.join(os.getcwd(), 'test.mp3')
+            if not self.full_file_path:
+                # self.full_file_path = os.path.join(os.getcwd(), 'test.mp3')
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+
+                msg.setText("Please select a file to play")
+                msg.setWindowTitle("")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                retval = msg.exec_()
             print('clicked play', self.full_file_path)
             self.label_booktitle.setText(os.path.basename(self.full_file_path))
         
@@ -94,7 +124,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             content = QMediaContent(url)
             self.player.setMedia(content)
             self.player.play()
+    def writeConfig(self):
+        items = []
+        for x in range(self.listWidget_bookmark.count()):
+            items.append(self.listWidget_bookmark.item(x).text())
+        self.config['user'] = {self.full_file_path:items}
+        self.config['user']['recentfile'] = self.full_file_path
+        with open('bookmarks.ini', 'w') as configfile:
+            self.config.write(configfile)
     def addBookmark(self):
+        print('in acdd bkmr')
+        print(self.full_file_path)
         if self.full_file_path:
             name = os.path.basename(self.full_file_path)
             curr = self.player.position()
@@ -102,7 +142,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             label = f"{name} {hms}"
             listWidgetItem = QListWidgetItem(label)
             self.listWidget_bookmark .addItem(listWidgetItem)
+            self.writeConfig()
             
+    def getfile(self):
+        fname = QFileDialog.getOpenFileName(self, 'Open file', os.getcwd())
+        self.full_file_path = fname[0]
+        with open('bookmarks.ini', 'w') as configfile:
+            self.config.write(configfile)
 
     def mediaStateChanged(self, state):
         if self.player.state() == QMediaPlayer.PlayingState:
@@ -133,17 +179,44 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def seek_forward(self):
         video_position = self.player.position()
         self.setPosition(int(video_position + self.video_seek_duration))
-        print(self.player.position())
+        # print(self.player.position())
         self.positionSlider.setValue(int(video_position + self.video_seek_duration))
 
+    def seek_forward_faster(self):
+        video_position = self.player.position()
+        self.setPosition(int(video_position + self.video_seek_faster_duration))
+        self.positionSlider.setValue(int(video_position + self.video_seek_faster_duration))
         print('clo', self.player.position() + self.video_seek_duration)
-    def handleError(self):
-        self.pushButton_play.setEnabled(False)
-        print("Error: " + self.mediaPlayer.errorString())
-
+    def seek_backward_faster(self):
+        video_position = self.player.position()
+        self.player.setPosition(max(video_position - self.video_seek_faster_duration, 0))
     def seek_backward(self):
         video_position = self.player.position()
         self.player.setPosition(max(video_position - self.video_seek_duration, 0))
+    def handleError(self):
+        self.pushButton_play.setEnabled(False)
+        print("Error: " + self.mediaPlayer.errorString())
+    
+    def removeSelectedBookmark(self):
+        listItems=self.listWidget_bookmark.selectedItems()
+        if not listItems: return        
+        for item in listItems:
+            self.listWidget_bookmark.takeItem(self.listWidget_bookmark.row(item))
+        self.writeConfig()
+    
+    def showSettings(self):
+        widget = SettingsDialog()
+        widget.exec_()
+    
+    def listWidgetItemClicked(self, item):
+        hhmmsstime = item.text().split(' ')[1]
+        hhmmsstime = hhmmsstime.split(':')
+        hh, mm, ss = int(hhmmsstime[0]), int(hhmmsstime[1]), int(hhmmsstime[2])
+        millis = (60*60*hh+60*mm+ss)*1000
+        self.player.setPosition(millis)
+        print(millis)
+
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Space:
             if self.player.state() == QMediaPlayer.PlayingState:
@@ -158,8 +231,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.seek_forward()
 
 
-# loader = QUiLoader()
-app = QtWidgets.QApplication(sys.argv)
-window = MainWindow() #loader.load("main.ui", None)
-window.show()
-app.exec_()
+
+if __name__ == '__main__':
+    # loader = QUiLoader()
+    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow() #loader.load("main.ui", None)
+    window.show()
+    sys.exit(app.exec_())
