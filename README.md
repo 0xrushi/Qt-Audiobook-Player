@@ -29,5 +29,6 @@ https://www.reddit.com/r/pinephone/comments/lpg156/does_pinephone_have_a_good_au
 
 
 **Liked my work ?**
+
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/rushiie)
 
