@@ -31,8 +31,6 @@ python ui_main.py
 
 [![Demo](https://img.youtube.com/vi/UBHZ7ay5wRM/0.jpg)](https://odysee.com/Qt-Audiobook-Player-Pinephone:c)
 
-<iframe id="odysee-iframe" width="560" height="315" src="https://odysee.com/$/embed/Qt-Audiobook-Player-Pinephone/c0a50538d72c33da16a02525cb0519fbad9865b4?r=5eCd8Ucksioe3461oCepEH9AjTRgpiWm" allowfullscreen></iframe>
-
 ### Mobile UI
 
 <img src='https://user-images.githubusercontent.com/6279035/168500635-cbcffeb3-88af-44f6-a88a-cbbdd95b9357.png' height='400'>
