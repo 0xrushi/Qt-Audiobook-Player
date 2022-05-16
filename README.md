@@ -17,6 +17,16 @@ https://www.reddit.com/r/pinephone/comments/lpg156/does_pinephone_have_a_good_au
 - Can seek forward/ backward with custom timestamp, just change the `video_seek_duration` and `video_seek_faster_duration` in `ui_main.py`
 - Works on desktops, laptops as well as linux phones :-) 
 
+## Installation instructions
+
+Install pyside2 
+```
+# for Arch linux
+sudo pacman -S pyside2
+
+python ui_main.py
+```
+
 ### Video demo
 
 [![Demo](https://img.youtube.com/vi/UBHZ7ay5wRM/0.jpg)](https://www.youtube.com/watch?v=UBHZ7ay5wRM)
