@@ -39,6 +39,7 @@ python ui_main.py
 
 
 **Liked my work ?**
+Please leave a star and more feature requests
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/rushiie)
 
