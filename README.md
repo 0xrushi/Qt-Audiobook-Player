@@ -29,8 +29,8 @@ python ui_main.py
 
 ### Video demo
 
-[![Demo](https://img.youtube.com/vi/UBHZ7ay5wRM/0.jpg)](https://www.youtube.com/watch?v=UBHZ7ay5wRM)
-
+[![Demo](https://img.youtube.com/vi/UBHZ7ay5wRM/0.jpg)](https://odysee.com/Qt-Audiobook-Player-Pinephone:c)
+<iframe id="odysee-iframe" width="560" height="315" src="https://odysee.com/$/embed/Qt-Audiobook-Player-Pinephone/c0a50538d72c33da16a02525cb0519fbad9865b4?r=5eCd8Ucksioe3461oCepEH9AjTRgpiWm" allowfullscreen></iframe>
 
 ### Mobile UI
 
