@@ -24,5 +24,5 @@ https://www.reddit.com/r/pinephone/comments/lpg156/does_pinephone_have_a_good_au
 
 ### Mobile UI
 
-<img src='https://user-images.githubusercontent.com/6279035/168500635-cbcffeb3-88af-44f6-a88a-cbbdd95b9357.png' width='250'>
-<img src='https://user-images.githubusercontent.com/6279035/168500638-08d1087e-51b8-4d8b-a9d9-3de8a58a8c3b.png' width='250'>
+<img src='https://user-images.githubusercontent.com/6279035/168500635-cbcffeb3-88af-44f6-a88a-cbbdd95b9357.png' height='400'>
+<img src='https://user-images.githubusercontent.com/6279035/168500638-08d1087e-51b8-4d8b-a9d9-3de8a58a8c3b.png' width='400'>
