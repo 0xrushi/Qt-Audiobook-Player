@@ -1,11 +1,12 @@
 # run with python -m unittest tests/test_writeConfig.py
 import unittest
+import sys
+sys.path.append('../')
 from output import Ui_MainWindow
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 import os 
 import ui_main
-import sys
 import hashlib
 from time import sleep
 
