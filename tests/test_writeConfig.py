@@ -48,4 +48,3 @@ class Test_writeConfig(unittest.TestCase):
             print("worked")
             sleep(1)
             os.rename("bookmarks.ini.tmp","bookmarks.ini")
-        
