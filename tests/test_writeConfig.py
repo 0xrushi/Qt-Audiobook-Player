@@ -1,8 +1,8 @@
-# run with python -m unittest test_writeConfig.py
+# run with python -m unittest tests/test_writeConfig.py
 import unittest
 from output import Ui_MainWindow
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+from PySide2.QtWidgets import *
+from PySide2.QtCore import *
 import os 
 import ui_main
 import sys
